@@ -7,6 +7,7 @@ docker run -d --name jenkins -p 8090:8080 -p 3000:3000 -p 50000:50000 -v jenkins
 docker exec -it jenkins bash
 
 whoami
+
 - jenkins
 
 cat /var/jenkins_home/secrets/initialAdminPassword
@@ -15,7 +16,6 @@ username: admin
 password: secret
 ur: http://localhost:8090
 
-
 plugin:
 Locale
 Nodejs
@@ -23,32 +23,19 @@ Nodejs
 docker exec -it --user root jenkins bash
 
 whoami
+
 - root
 
 apt-get update
 curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-apt-get install -y nodejs nano 
+apt-get install -y nodejs nano
 
 apt-get install -y libatomic1 - for nodejs tool
 
-
-
-
-
-
 -> ask about saving logs as volume
 
-
-
-
-
-
-
-
-
-
 pipeline {
-    agent any
+agent any
 
     stages {
         stage('check node version') {
@@ -101,9 +88,70 @@ pipeline {
             }
         }
     }
+
+}
+
+    environment {
+        NAME = "Yakir"
+    }
+        echo "Hello, ${NAME}!"
+
+pipeline {
+    agent any
+    
+    environment {
+        NAME = "Yakir"
+        FILE_NAME = "new-env.txt"
+    }
+
+    stages {
+        stage('Hello my env') {
+            steps {
+                echo "Hello, ${NAME}"
+            }
+        }
+        stage('create my env as file') {
+            steps {
+                sh "touch ${FILE_NAME}"
+            }
+        }
+    }
 }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    stages {
+        stage('explore env') {
+            steps {
+                echo "GitHub credentials: ${GITHUB_CREDENTIALS_USR} / ${GITHUB_CREDENTIALS_PSW}"
+                echo "GitHub SSH credentials: ${GITHUB_CREDENTIALS_SSH_USR} / ${GITHUB_CREDENTIALS_SSH}"
+            }
+        }
+    }
+
+
+
+
+        GITHUB_CREDENTIALS = credentials('GitHub_PAT')
+        GITHUB_CREDENTIALS_SSH = credentials('GitHub_SSH')
