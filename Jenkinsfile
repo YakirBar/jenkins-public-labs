@@ -13,8 +13,7 @@ pipeline {
     stages {
         stage('show github cred') {
             steps {
-                echo "${GITHUB_CREDENTIALS_USR}"
-                echo "${GITHUB_CREDENTIALS_PASS}"
+                echo "GitHub credentials: ${GITHUB_CREDENTIALS_USR} / ${GITHUB_CREDENTIALS_PSW}"
             }
         }
         stage('pwd') {
