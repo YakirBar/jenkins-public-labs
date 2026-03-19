@@ -153,5 +153,4 @@ pipeline {
 
 
 
-        GITHUB_CREDENTIALS = credentials('GitHub_PAT')
         GITHUB_CREDENTIALS_SSH = credentials('GitHub_SSH')
